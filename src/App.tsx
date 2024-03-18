@@ -8,7 +8,9 @@ function App() {
           <div>Page 2</div>
           <div>Page 3</div>
         </div>
-        <main>Main content</main>
+        <main>
+          <div className="testContainer">Container</div>
+        </main>
       </div>
     </div>
   );
