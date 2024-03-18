@@ -1,3 +1,5 @@
+import Table from "./components/Table";
+
 function App() {
   return (
     <div className="layout">
@@ -9,7 +11,9 @@ function App() {
           <div>Page 3</div>
         </div>
         <main>
-          <div className="testContainer">Container</div>
+          <div className="testContainer">
+            <Table />
+          </div>
         </main>
       </div>
     </div>

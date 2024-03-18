@@ -26,7 +26,7 @@ header {
 }
 
 .sidebar {
-  width: 200px;
+  min-width: 200px;
   background-color: rgb(207, 207, 214);
   box-shadow: 1px 2px 2px;
 }
@@ -34,11 +34,9 @@ header {
 main {
   flex: 1;
   padding: 15px;
-  background-color: antiquewhite;
 }
 
 .testContainer {
   width: 100%;
   height: 100%;
-  background-color: rgb(223, 137, 137);
 }
