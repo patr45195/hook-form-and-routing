@@ -3,3 +3,36 @@ body {
   margin: 0;
   box-sizing: border-box;
 }
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+header {
+  height: 50px;
+  background-color: rgb(91, 140, 204);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: rgb(207, 207, 214);
+  box-shadow: 1px 2px 2px;
+}
+
+main {
+  flex: 1;
+  padding: 15px;
+  background-color: antiquewhite;
+}
