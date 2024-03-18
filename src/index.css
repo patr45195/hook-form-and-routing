@@ -31,12 +31,17 @@ header {
   box-shadow: 1px 2px 2px;
 }
 
+.sidebar-links {
+  display: flex;
+  flex-direction: column;
+}
+
 main {
   flex: 1;
   padding: 15px;
 }
 
-.testContainer {
+.contentWrapper {
   width: 100%;
   height: 100%;
 }
