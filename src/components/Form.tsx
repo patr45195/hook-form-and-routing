@@ -1,5 +1,6 @@
+import { Button, InputLabel, TextField } from "@mui/material";
 import axios from "axios";
-import { useForm } from "react-hook-form";
+import { useController, useForm } from "react-hook-form";
 
 interface IFormData {
   name: string;
@@ -61,5 +62,43 @@ export const Form = () => {
     defaultValues: async () => await fetchDefaultValues(),
   });
 
-  return <div>my form</div>;
+  const onSubmit = (data: IFormData) => {
+    console.log(data);
+  };
+
+  const nameProps = useController({
+    name: "name",
+    control,
+  });
+  const userNameProps = useController({
+    name: "username",
+    control,
+  });
+  const titleProps = useController({
+    name: "email",
+    control,
+  });
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <InputLabel id="name">Name</InputLabel>
+      <TextField {...nameProps.field} value={nameProps.field.value} id="name" />
+
+      <InputLabel id="userName">UserName</InputLabel>
+      <TextField
+        {...userNameProps.field}
+        value={userNameProps.field.value}
+        id="userName"
+      />
+
+      <InputLabel id="title">Name</InputLabel>
+      <TextField
+        {...titleProps.field}
+        value={titleProps.field.value}
+        id="title"
+      />
+
+      <Button type="submit">Submit</Button>
+    </form>
+  );
 };
