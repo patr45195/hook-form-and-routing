@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 
 const columns: GridColDef[] = [
@@ -35,7 +36,7 @@ const rows = [
 
 export default function Table() {
   return (
-    <div style={{ height: 400, width: "100%" }}>
+    <Box sx={{ width: "100%" }}>
       <DataGrid
         rows={rows}
         columns={columns}
@@ -47,6 +48,6 @@ export default function Table() {
         pageSizeOptions={[5, 10]}
         checkboxSelection
       />
-    </div>
+    </Box>
   );
 }
