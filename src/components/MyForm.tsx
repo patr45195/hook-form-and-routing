@@ -75,6 +75,7 @@ export const fetchAdditionalValues = async () => {
     return { cities, countries };
   } catch (error) {
     console.log(error);
+    return { cities: [], countries: [] };
   }
 };
 
