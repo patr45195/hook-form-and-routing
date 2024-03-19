@@ -65,8 +65,8 @@ export const fetchAdditionalValues = async () => {
 };
 
 export const MyForm = () => {
-  const [cities, setCities] = useState<any>();
-  const [countries, setCountries] = useState<any>();
+  const [cities, setCities] = useState<ICities[] | undefined>();
+  const [countries, setCountries] = useState<ICountries[] | undefined>();
 
   useEffect(() => {
     const setData = async () => {
