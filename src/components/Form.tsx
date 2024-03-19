@@ -78,6 +78,10 @@ export const Form = () => {
     name: "email",
     control,
   });
+  const postsProps = useController({
+    name: "posts",
+    control,
+  });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -100,6 +104,13 @@ export const Form = () => {
         {...titleProps.field}
         value={titleProps.field.value ?? ""}
         id="title"
+      />
+
+      <InputLabel id="posts">Posts</InputLabel>
+      <TextField
+        {...postsProps.field}
+        value={postsProps.field.value[0] ?? ""}
+        id="posts"
       />
 
       <Button type="submit">Submit</Button>
