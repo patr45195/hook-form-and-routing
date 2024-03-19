@@ -97,7 +97,11 @@ export const MyForm = () => {
     setData();
   }, []);
 
-  const { control, handleSubmit } = useForm<IFormData>({
+  const {
+    control,
+    handleSubmit,
+    formState: { isDirty },
+  } = useForm<IFormData>({
     defaultValues: async () => await fetchDefaultUserValues(),
   });
 
@@ -171,7 +175,7 @@ export const MyForm = () => {
           renderInput={(params) => <TextField {...params} />}
         />
 
-        <Button type="submit" variant="contained">
+        <Button type="submit" variant="contained" disabled={!isDirty}>
           Submit
         </Button>
       </form>
