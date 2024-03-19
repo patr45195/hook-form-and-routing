@@ -28,14 +28,14 @@ interface ICountries {
 
 export const fetchDefaultUserValues = async () => {
   try {
-    const response = await axios.get<IUser>("http://localhost:4444/user/1");
+    const { data } = await axios.get<IUser>("http://localhost:4444/user/1");
 
-    const userData: IUser = response.data;
+    const { name, age, city } = data;
 
     return {
-      name: userData.name,
-      age: userData.age,
-      city: userData.city,
+      name,
+      age,
+      city,
     };
   } catch (error) {
     console.log("Error fetching default user values", error);
