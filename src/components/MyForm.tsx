@@ -107,6 +107,8 @@ export const MyForm = () => {
     control,
   });
 
+  if (!cities) return <div>Loading...</div>;
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <InputLabel id="name">Name</InputLabel>
