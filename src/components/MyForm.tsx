@@ -1,4 +1,4 @@
-import { InputLabel, TextField } from "@mui/material";
+import { Autocomplete, InputLabel, TextField } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm, useController } from "react-hook-form";
@@ -67,6 +67,7 @@ export const fetchAdditionalValues = async () => {
 export const MyForm = () => {
   const [cities, setCities] = useState<ICities[] | undefined>();
   const [countries, setCountries] = useState<ICountries[] | undefined>();
+  const [selectedCityId, setSelectedCityId] = useState<number | null>(null);
 
   useEffect(() => {
     const setData = async () => {
@@ -112,6 +113,16 @@ export const MyForm = () => {
         {...ageProps.field}
         value={ageProps.field.value ?? ""}
         id="age"
+      />
+
+      <InputLabel id="city">City</InputLabel>
+      <Autocomplete
+        id="city"
+        options={cities ?? []}
+        getOptionLabel={(option) => option.city}
+        value={cities?.find((city) => city.id === selectedCityId) || null}
+        onChange={(event, value) => setSelectedCityId(value?.id ?? null)}
+        renderInput={(params) => <TextField {...params} />}
       />
 
       <input type="submit" />
