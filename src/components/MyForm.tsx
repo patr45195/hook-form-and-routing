@@ -6,12 +6,14 @@ import { useForm, useController } from "react-hook-form";
 interface IFormData {
   name: string;
   age: number;
+  city: number;
 }
 
 interface IUser {
   id: number;
   name: string;
   age: number;
+  city: number;
 }
 
 interface ICities {
@@ -33,12 +35,14 @@ export const fetchDefaultUserValues = async () => {
     return {
       name: userData.name,
       age: userData.age,
+      city: userData.city,
     };
   } catch (error) {
     console.log(error);
     return {
       name: "",
       age: 0,
+      city: 0,
     };
   }
 };
@@ -98,6 +102,8 @@ export const MyForm = () => {
     name: "age",
     control,
   });
+
+  if (!cities) return <div>Loading...</div>;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
