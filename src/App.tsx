@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import Table from "./components/Table";
 import { Form } from "./components/Form";
-import { SelectForm } from "./components/SelectForm";
+import { MyForm } from "./components/MyForm";
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
         <Route index element={<div>home</div>} />
         <Route path="/form" element={<Form />} />
         <Route path="/table" element={<Table />} />
-        <Route path="/selectForm" element={<SelectForm />} />
+        <Route path="/selectForm" element={<MyForm />} />
       </Route>
     </Routes>
   );
