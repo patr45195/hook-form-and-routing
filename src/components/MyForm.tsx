@@ -1,5 +1,6 @@
 import { InputLabel, TextField } from "@mui/material";
 import axios from "axios";
+import { useEffect } from "react";
 import { useForm, useController } from "react-hook-form";
 
 interface IFormData {
@@ -11,6 +12,16 @@ interface IUser {
   id: number;
   name: string;
   age: number;
+}
+
+interface ICities {
+  id: number;
+  city: string;
+}
+
+interface ICountries {
+  id: number;
+  city: string;
 }
 
 export const fetchDefaultUserValues = async () => {
@@ -29,6 +40,27 @@ export const fetchDefaultUserValues = async () => {
       name: "",
       age: 0,
     };
+  }
+};
+
+export const fetchAdditionalValues = async () => {
+  try {
+    const citiesPromise = axios.get<ICities[]>("http://localhost:4444/cities");
+    const countriesPromise = axios.get<ICountries[]>(
+      "http://localhost:4444/countries"
+    );
+
+    const [citiesResponse, countriesResponse] = await Promise.all([
+      citiesPromise,
+      countriesPromise,
+    ]);
+
+    const cities = citiesResponse.data;
+    const countries = countriesResponse.data;
+
+    return { cities, countries };
+  } catch (error) {
+    console.log(error);
   }
 };
 
