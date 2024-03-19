@@ -71,7 +71,6 @@ export const fetchAdditionalValues = async () => {
 export const MyForm = () => {
   const [cities, setCities] = useState<ICities[] | undefined>();
   const [countries, setCountries] = useState<ICountries[] | undefined>();
-  const [selectedCityId, setSelectedCityId] = useState<number | null>(null);
 
   useEffect(() => {
     const setData = async () => {
@@ -103,7 +102,10 @@ export const MyForm = () => {
     control,
   });
 
-  if (!cities) return <div>Loading...</div>;
+  const cityProps = useController({
+    name: "city",
+    control,
+  });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -126,8 +128,10 @@ export const MyForm = () => {
         id="city"
         options={cities ?? []}
         getOptionLabel={(option) => option.city}
-        value={cities?.find((city) => city.id === selectedCityId) || null}
-        onChange={(event, value) => setSelectedCityId(value?.id ?? null)}
+        value={
+          cities?.find((city) => city.id === cityProps.field.value) || null
+        }
+        onChange={(event, value) => cityProps.field.onChange(value?.id ?? null)}
         renderInput={(params) => <TextField {...params} />}
       />
 
