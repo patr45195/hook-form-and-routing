@@ -1,4 +1,10 @@
-import { Autocomplete, InputLabel, TextField } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  Button,
+  InputLabel,
+  TextField,
+} from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm, useController } from "react-hook-form";
@@ -7,6 +13,7 @@ interface IFormData {
   name: string;
   age: number;
   city: number;
+  country: number;
 }
 
 interface IUser {
@@ -14,6 +21,7 @@ interface IUser {
   name: string;
   age: number;
   city: number;
+  country: number;
 }
 
 interface ICities {
@@ -23,19 +31,20 @@ interface ICities {
 
 interface ICountries {
   id: number;
-  city: string;
+  country: string;
 }
 
 export const fetchDefaultUserValues = async () => {
   try {
     const { data } = await axios.get<IUser>("http://localhost:4444/user/1");
 
-    const { name, age, city } = data;
+    const { name, age, city, country } = data;
 
     return {
       name,
       age,
       city,
+      country,
     };
   } catch (error) {
     console.log("Error fetching default user values", error);
@@ -43,6 +52,7 @@ export const fetchDefaultUserValues = async () => {
       name: "",
       age: 0,
       city: 0,
+      country: 0,
     };
   }
 };
@@ -107,37 +117,64 @@ export const MyForm = () => {
     control,
   });
 
+  const countryProps = useController({
+    name: "country",
+    control,
+  });
+
   if (!cities) return <div>Loading...</div>;
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <InputLabel id="name">Name</InputLabel>
-      <TextField
-        {...nameProps.field}
-        value={nameProps.field.value ?? ""}
-        id="name"
-      />
+    <Box sx={{ width: "223px" }}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <InputLabel id="name">Name</InputLabel>
+        <TextField
+          {...nameProps.field}
+          value={nameProps.field.value ?? ""}
+          id="name"
+        />
 
-      <InputLabel id="age">Age</InputLabel>
-      <TextField
-        {...ageProps.field}
-        value={ageProps.field.value ?? ""}
-        id="age"
-      />
+        <InputLabel id="age">Age</InputLabel>
+        <TextField
+          {...ageProps.field}
+          value={ageProps.field.value ?? ""}
+          id="age"
+        />
 
-      <InputLabel id="city">City</InputLabel>
-      <Autocomplete
-        id="city"
-        options={cities ?? []}
-        getOptionLabel={(option) => option.city}
-        value={
-          cities?.find((city) => city.id === cityProps.field.value) || null
-        }
-        onChange={(event, value) => cityProps.field.onChange(value?.id ?? null)}
-        renderInput={(params) => <TextField {...params} />}
-      />
+        <InputLabel id="city">City</InputLabel>
+        <Autocomplete
+          id="city"
+          options={cities ?? []}
+          getOptionLabel={(option) => option.city}
+          value={
+            cities?.find((city) => city.id === cityProps.field.value) || null
+          }
+          onChange={(event, value) =>
+            cityProps.field.onChange(value?.id ?? null)
+          }
+          renderInput={(params) => <TextField {...params} />}
+        />
 
-      <input type="submit" />
-    </form>
+        <InputLabel id="country">Country</InputLabel>
+        <Autocomplete
+          id="country"
+          options={countries ?? []}
+          getOptionLabel={(option) => option.country}
+          value={
+            countries?.find(
+              (country) => country.id === countryProps.field.value
+            ) || null
+          }
+          onChange={(event, value) =>
+            countryProps.field.onChange(value?.id ?? null)
+          }
+          renderInput={(params) => <TextField {...params} />}
+        />
+
+        <Button type="submit" variant="contained">
+          Submit
+        </Button>
+      </form>
+    </Box>
   );
 };
