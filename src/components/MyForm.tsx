@@ -38,7 +38,7 @@ export const fetchDefaultUserValues = async () => {
       city: userData.city,
     };
   } catch (error) {
-    console.log(error);
+    console.log("Error fetching default user values", error);
     return {
       name: "",
       age: 0,
