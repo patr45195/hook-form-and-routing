@@ -1,6 +1,6 @@
 import { InputLabel, TextField } from "@mui/material";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm, useController } from "react-hook-form";
 
 interface IFormData {
@@ -65,6 +65,24 @@ export const fetchAdditionalValues = async () => {
 };
 
 export const MyForm = () => {
+  const [cities, setCities] = useState<any>();
+  const [countries, setCountries] = useState<any>();
+
+  useEffect(() => {
+    const setData = async () => {
+      try {
+        const response = await fetchAdditionalValues();
+
+        setCities(response?.cities);
+        setCountries(response?.countries);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    setData();
+  }, []);
+
   const { control, handleSubmit } = useForm<IFormData>({
     defaultValues: async () => await fetchDefaultUserValues(),
   });
