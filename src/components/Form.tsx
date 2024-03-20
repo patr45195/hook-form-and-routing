@@ -38,6 +38,10 @@ export const Form = () => {
     name: "firstName",
     control,
   });
+  const jsonProps = useController({
+    name: "json",
+    control,
+  });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -50,7 +54,7 @@ export const Form = () => {
 
       <InputLabel id="json">JSON Data</InputLabel>
       <TextField
-        {...useController({ name: "json", control }).field}
+        {...jsonProps.field}
         id="json"
         type="text"
         error={!!errors.json}
