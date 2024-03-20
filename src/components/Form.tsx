@@ -3,6 +3,14 @@ import { Button, InputLabel, TextField } from "@mui/material";
 import { SubmitHandler, useController, useForm } from "react-hook-form";
 import { z } from "zod";
 
+export const removeUnnecessary = (str: string) => {
+  if (!str || str.length <= 2) {
+    return "";
+  }
+
+  return str.substring(1, str.length - 1);
+};
+
 const formSchema = z.object({
   firstName: z.string().min(2).max(50),
   json: z.string().refine((jsonString) => {
@@ -31,7 +39,11 @@ export const Form = () => {
   });
 
   const onSubmit: SubmitHandler<FormSchema> = (data) => {
-    console.log(data);
+    console.log({
+      firstName: data.firstName,
+      json: JSON.parse(data.json),
+    });
+    // console.log(data);
   };
 
   const firstNameProps = useController({
