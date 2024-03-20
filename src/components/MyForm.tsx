@@ -2,19 +2,15 @@ import {
   Autocomplete,
   Box,
   Button,
+  FormHelperText,
   InputLabel,
   TextField,
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useForm, useController } from "react-hook-form";
-
-interface IFormData {
-  name: string;
-  age: number;
-  city: number;
-  country: number;
-}
+import { useForm, useController, SubmitHandler } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 interface IUser {
   id: number;
@@ -33,6 +29,15 @@ interface ICountries {
   id: number;
   country: string;
 }
+
+const formSchema = z.object({
+  name: z.string().min(2).max(50),
+  age: z.number().int().positive(),
+  city: z.number().int().positive(),
+  country: z.number().int().positive(),
+});
+
+type FormSchema = z.infer<typeof formSchema>;
 
 export const fetchDefaultUserValues = async () => {
   try {
@@ -101,12 +106,15 @@ export const MyForm = () => {
   const {
     control,
     handleSubmit,
-    formState: { isDirty },
-  } = useForm<IFormData>({
+    formState: { isDirty, errors },
+  } = useForm<FormSchema>({
     defaultValues: async () => await fetchDefaultUserValues(),
+    resolver: zodResolver(formSchema),
   });
 
-  const onSubmit = (data: IFormData) => console.log(data);
+  const onSubmit: SubmitHandler<FormSchema> = (data) => {
+    console.log(data);
+  };
 
   const nameProps = useController({
     name: "name",
@@ -137,13 +145,22 @@ export const MyForm = () => {
           {...nameProps.field}
           value={nameProps.field.value ?? ""}
           id="name"
+          aria-describedby="name-error-text"
         />
+        {errors.name && (
+          <FormHelperText sx={{ color: "red" }} id="name-error-text">
+            {errors.name.message}
+          </FormHelperText>
+        )}
 
         <InputLabel id="age">Age</InputLabel>
         <TextField
           {...ageProps.field}
           value={ageProps.field.value ?? ""}
           id="age"
+          onChange={(e) =>
+            ageProps.field.onChange(parseInt(e.target.value, 10))
+          }
         />
 
         <InputLabel id="city">City</InputLabel>
