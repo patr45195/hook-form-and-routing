@@ -43,7 +43,6 @@ export const Form = () => {
       firstName: data.firstName,
       json: JSON.parse(data.json),
     });
-    // console.log(data);
   };
 
   const firstNameProps = useController({

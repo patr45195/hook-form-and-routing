@@ -145,13 +145,9 @@ export const MyForm = () => {
           {...nameProps.field}
           value={nameProps.field.value ?? ""}
           id="name"
-          aria-describedby="name-error-text"
+          error={!!errors.name}
+          helperText={errors.name ? errors.name.message : ""}
         />
-        {errors.name && (
-          <FormHelperText sx={{ color: "red" }} id="name-error-text">
-            {errors.name.message}
-          </FormHelperText>
-        )}
 
         <InputLabel id="age">Age</InputLabel>
         <TextField
