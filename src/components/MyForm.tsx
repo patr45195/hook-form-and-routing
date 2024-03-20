@@ -159,7 +159,7 @@ export const MyForm = () => {
           value={ageProps.field.value ?? ""}
           id="age"
           onChange={(e) =>
-            ageProps.field.onChange(parseInt(e.target.value, 10))
+            ageProps.field.onChange(parseInt(e.target.value, 10) || 0)
           }
         />
 
