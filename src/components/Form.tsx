@@ -61,6 +61,8 @@ export const Form = () => {
         {...firstNameProps.field}
         value={firstNameProps.field.value ?? ""}
         id="firstName"
+        error={!!errors.firstName}
+        helperText={errors.firstName ? errors.firstName.message : ""}
       />
 
       <InputLabel id="json">JSON Data</InputLabel>
