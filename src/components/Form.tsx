@@ -25,7 +25,7 @@ export const Form = () => {
   } = useForm<FormSchema>({
     defaultValues: {
       firstName: "Alex",
-      json: '{"id":1,"name":"John","age":30}',
+      json: JSON.stringify({ id: 1, name: "John", age: 30 }),
     },
     resolver: zodResolver(formSchema),
   });
