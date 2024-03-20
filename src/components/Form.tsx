@@ -5,6 +5,14 @@ import { z } from "zod";
 
 const formSchema = z.object({
   firstName: z.string().min(2).max(50),
+  json: z.string().refine((jsonString) => {
+    try {
+      JSON.parse(jsonString);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }, "Invalid JSON format"),
 });
 
 type FormSchema = z.infer<typeof formSchema>;
@@ -17,6 +25,7 @@ export const Form = () => {
   } = useForm<FormSchema>({
     defaultValues: {
       firstName: "Alex",
+      json: '{"id":1,"name":"John","age":30}',
     },
     resolver: zodResolver(formSchema),
   });
@@ -37,6 +46,15 @@ export const Form = () => {
         {...firstNameProps.field}
         value={firstNameProps.field.value ?? ""}
         id="firstName"
+      />
+
+      <InputLabel id="json">JSON Data</InputLabel>
+      <TextField
+        {...useController({ name: "json", control }).field}
+        id="json"
+        type="text"
+        error={!!errors.json}
+        helperText={errors.json ? errors.json.message : ""}
       />
 
       <Button type="submit">Submit</Button>
