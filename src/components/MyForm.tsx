@@ -182,7 +182,7 @@ export const MyForm = () => {
           value={countryProps.field.value || countries[0].id}
           onChange={(e) => countryProps.field.onChange(e.target.value)}
         >
-          {countries?.map((country) => (
+          {countries.map((country) => (
             <MenuItem key={country.id} value={country.id}>
               {country.country}
             </MenuItem>
