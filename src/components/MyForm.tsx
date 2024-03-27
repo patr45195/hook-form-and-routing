@@ -4,6 +4,8 @@ import {
   Button,
   FormHelperText,
   InputLabel,
+  MenuItem,
+  Select,
   TextField,
 } from "@mui/material";
 import axios from "axios";
@@ -34,7 +36,7 @@ const formSchema = z.object({
   name: z.string().min(2).max(50),
   age: z.number().int().positive(),
   city: z.number().int().positive(),
-  country: z.number().int().positive(),
+  country: z.coerce.number(),
 });
 
 type FormSchema = z.infer<typeof formSchema>;
@@ -135,7 +137,7 @@ export const MyForm = () => {
     control,
   });
 
-  if (!cities) return <div>Loading...</div>;
+  if (!cities || !countries) return <div>Loading...</div>;
 
   return (
     <Box sx={{ width: "223px" }}>
@@ -174,20 +176,18 @@ export const MyForm = () => {
         />
 
         <InputLabel id="country">Country</InputLabel>
-        <Autocomplete
+        <Select
+          labelId="country"
           id="country"
-          options={countries ?? []}
-          getOptionLabel={(option) => option.country}
-          value={
-            countries?.find(
-              (country) => country.id === countryProps.field.value
-            ) || null
-          }
-          onChange={(event, value) =>
-            countryProps.field.onChange(value?.id ?? null)
-          }
-          renderInput={(params) => <TextField {...params} />}
-        />
+          value={countryProps.field.value || countries[0].id}
+          onChange={(e) => countryProps.field.onChange(e.target.value)}
+        >
+          {countries?.map((country) => (
+            <MenuItem key={country.id} value={country.id}>
+              {country.country}
+            </MenuItem>
+          ))}
+        </Select>
 
         <Button type="submit" variant="contained" disabled={!isDirty}>
           Submit
