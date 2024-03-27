@@ -177,6 +177,7 @@ export const MyForm = () => {
 
         <InputLabel id="country">Country</InputLabel>
         <Select
+          fullWidth
           labelId="country"
           id="country"
           value={countryProps.field.value || countries[0].id}
