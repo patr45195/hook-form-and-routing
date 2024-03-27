@@ -165,14 +165,12 @@ export const MyForm = () => {
           options={cities ?? []}
           getOptionLabel={(option) => option.city}
           value={
-            cities?.find((city) => city.id === cityProps.field.value) ||
-            undefined
+            cities?.find((city) => city.id === cityProps.field.value) || null
           }
           onChange={(event, value) =>
             cityProps.field.onChange(value?.id ?? null)
           }
           renderInput={(params) => <TextField {...params} />}
-          disableClearable
         />
 
         <InputLabel id="country">Country</InputLabel>
