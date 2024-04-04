@@ -70,6 +70,8 @@ export const Form = () => {
         {...jsonProps.field}
         id="json"
         type="text"
+        multiline
+        rows={5}
         error={!!errors.json}
         helperText={errors.json ? errors.json.message : ""}
       />
