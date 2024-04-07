@@ -32,6 +32,10 @@ interface ICountries {
   country: string;
 }
 
+interface MyFormProps {
+  getDefaultValues: () => Promise<Omit<IUser, "id">>;
+}
+
 const formSchema = z.object({
   name: z.string().min(2).max(50),
   age: z.number().int().positive(),
@@ -86,7 +90,7 @@ export const fetchAdditionalValues = async () => {
   }
 };
 
-export const MyForm = () => {
+export const MyForm = ({ getDefaultValues }: MyFormProps) => {
   const [cities, setCities] = useState<ICities[] | undefined>();
   const [countries, setCountries] = useState<ICountries[] | undefined>();
 
@@ -110,7 +114,7 @@ export const MyForm = () => {
     handleSubmit,
     formState: { isDirty, errors },
   } = useForm<FormSchema>({
-    defaultValues: async () => await fetchDefaultUserValues(),
+    defaultValues: async () => await getDefaultValues(),
     resolver: zodResolver(formSchema),
   });
 
