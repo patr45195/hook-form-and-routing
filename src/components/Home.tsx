@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 
 function Home() {
-  const [state1, setState1] = useState({ name: "john" });
-  const [state2, setState2] = useState({ name: "alex" });
+  const initialState1 = { name: "john" };
+  const initialState2 = { name: "alex" };
+
+  const [state1, setState1] = useState(initialState1);
+  const [state2, setState2] = useState(initialState2);
 
   useEffect(() => {
     console.log("state changed");
@@ -12,10 +15,26 @@ function Home() {
     setState1({ name: "non john" });
   };
 
+  const resetState = () => {
+    setState1({ name: "john" });
+  };
+
+  const isStateDifferentFromInitial = (
+    state: { name: string },
+    initialState: { name: string }
+  ) => {
+    return JSON.stringify(state) !== JSON.stringify(initialState);
+  };
+
   return (
     <>
       <h1>Home</h1>
       <button onClick={handleChangeState}>Change state</button>
+      <button onClick={resetState}>Change state</button>
+      {isStateDifferentFromInitial(state1, initialState1) ||
+      isStateDifferentFromInitial(state2, initialState2) ? (
+        <p>At least one state is different from its initial value.</p>
+      ) : null}
     </>
   );
 }
