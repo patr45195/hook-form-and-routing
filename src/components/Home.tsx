@@ -8,15 +8,26 @@ function Home() {
   const [state2, setState2] = useState(initialState2);
 
   useEffect(() => {
-    console.log("state changed");
-  }, [state1, state2]);
+    const hasChangesState =
+      isStateDifferentFromInitial(state1, initialState1) ||
+      isStateDifferentFromInitial(state2, initialState2)
+        ? true
+        : false;
 
-  const handleChangeState = () => {
+    console.log(hasChangesState);
+  }, [initialState1, initialState2, state1, state2]);
+
+  const handleChangeState1 = () => {
     setState1({ name: "non john" });
+  };
+
+  const handleChangeState2 = () => {
+    setState2({ name: "non alex" });
   };
 
   const resetState = () => {
     setState1({ name: "john" });
+    setState2({ name: "alex" });
   };
 
   const isStateDifferentFromInitial = (
@@ -29,12 +40,9 @@ function Home() {
   return (
     <>
       <h1>Home</h1>
-      <button onClick={handleChangeState}>Change state</button>
+      <button onClick={handleChangeState1}>Change state 1</button>
+      <button onClick={handleChangeState2}>Change state 2</button>
       <button onClick={resetState}>Reset state</button>
-      {isStateDifferentFromInitial(state1, initialState1) ||
-      isStateDifferentFromInitial(state2, initialState2) ? (
-        <p>At least one state is different from its initial value.</p>
-      ) : null}
     </>
   );
 }
