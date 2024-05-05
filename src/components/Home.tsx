@@ -30,7 +30,7 @@ function Home() {
     <>
       <h1>Home</h1>
       <button onClick={handleChangeState}>Change state</button>
-      <button onClick={resetState}>Change state</button>
+      <button onClick={resetState}>Reset state</button>
       {isStateDifferentFromInitial(state1, initialState1) ||
       isStateDifferentFromInitial(state2, initialState2) ? (
         <p>At least one state is different from its initial value.</p>
