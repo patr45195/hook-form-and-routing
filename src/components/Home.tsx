@@ -14,7 +14,7 @@ function Home() {
         ? true
         : false;
 
-    console.log(hasChangesState);
+    // console.log(hasChangesState);
   }, [initialState1, initialState2, state1, state2]);
 
   const handleChangeState1 = () => {

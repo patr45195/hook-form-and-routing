@@ -11,6 +11,7 @@ export const Layout = () => {
             <Link to="/form">Form</Link>
             <Link to="/table">Table</Link>
             <Link to="/selectForm">Select Form</Link>
+            <Link to="/virtualize">Virtualize</Link>
           </div>
         </div>
         <main>

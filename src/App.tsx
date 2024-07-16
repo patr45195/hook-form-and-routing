@@ -4,14 +4,19 @@ import Table from "./components/Table";
 import { Form } from "./components/Form";
 import { MyForm, fetchDefaultUserValues } from "./components/MyForm";
 import Home from "./components/Home";
+import Virtualize from "./components/Virtualize";
 
 function App() {
+  console.log(typeof 1 + NaN ** 0);
+  console.log(typeof (1 + NaN ** 0));
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="/form" element={<Form />} />
         <Route path="/table" element={<Table />} />
+        <Route path="/virtualize" element={<Virtualize />} />
         <Route
           path="/selectForm"
           element={<MyForm getDefaultValues={fetchDefaultUserValues} />}
