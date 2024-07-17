@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface VirtualizedListProps {
   itemHeight: number;
@@ -68,15 +68,61 @@ const SimpleList = ({ items }: SimpleListProps) => {
   );
 };
 
+const UsualList = ({ items }: any) => {
+  return (
+    <div>
+      {items.map((item, index) => (
+        <div key={index}>{item}</div>
+      ))}
+    </div>
+  );
+};
+
+const BigList = ({ items }: any) => {
+  const [visibleItems, setVisibleItems] = useState<any>([]);
+  const chunkSize = 1000;
+
+  useEffect(() => {
+    let currentIndex = 0;
+
+    const renderChunk = () => {
+      const nextChunk = items.slice(currentIndex, currentIndex + chunkSize);
+      setVisibleItems((prevItems: any) => [...prevItems, ...nextChunk]);
+      currentIndex += chunkSize;
+
+      if (currentIndex < items.length) {
+        if (window.requestIdleCallback) {
+          window.requestIdleCallback(renderChunk);
+        } else {
+          setTimeout(renderChunk, 0);
+        }
+      }
+    };
+
+    renderChunk();
+  }, [items]);
+
+  return (
+    <div>
+      {visibleItems.map((item, index) => (
+        <div key={index}>{item}</div>
+      ))}
+    </div>
+  );
+};
+
 function Virtualize() {
   const items = Array.from(
-    { length: 50000 },
+    { length: 150000 },
     (_, index) => `Item ${index + 1}`
   );
 
   return (
     // <SimpleList items={items} />
-    <VirtualizedList items={items} itemHeight={35} containerHeight={800} />
+    // <VirtualizedList items={items} itemHeight={35} containerHeight={800} />
+
+    <BigList items={items} />
+    // <UsualList items={items} />
   );
 }
 
