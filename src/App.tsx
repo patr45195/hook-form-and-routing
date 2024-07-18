@@ -7,9 +7,6 @@ import Home from "./components/Home";
 import Virtualize from "./components/Virtualize";
 
 function App() {
-  console.log(typeof 1 + NaN ** 0);
-  console.log(typeof (1 + NaN ** 0));
-
   return (
     <Routes>
       <Route path="/" element={<Layout />}>

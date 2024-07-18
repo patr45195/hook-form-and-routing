@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 
 interface VirtualizedListProps {
   itemHeight: number;
@@ -68,18 +68,22 @@ const SimpleList = ({ items }: SimpleListProps) => {
   );
 };
 
-const UsualList = ({ items }: any) => {
-  return (
-    <div>
-      {items.map((item, index) => (
-        <div key={index}>{item}</div>
-      ))}
-    </div>
-  );
-};
+// const UsualList = ({ items }: any) => {
+//   return (
+//     <div>
+//       {items.map((item, index) => (
+//         <div key={index}>{item}</div>
+//       ))}
+//     </div>
+//   );
+// };
 
-const BigList = ({ items }: any) => {
-  const [visibleItems, setVisibleItems] = useState<any>([]);
+interface BigListProps {
+  items: string[];
+}
+
+const BigList = ({ items }: BigListProps) => {
+  const [visibleItems, setVisibleItems] = useState<string[]>([]);
   const chunkSize = 1000;
 
   useEffect(() => {
@@ -111,19 +115,16 @@ const BigList = ({ items }: any) => {
   );
 };
 
-function Virtualize() {
-  const items = Array.from(
-    { length: 150000 },
-    (_, index) => `Item ${index + 1}`
-  );
+const Virtualize = () => {
+  const items = Array.from({ length: 10 }, (_, index) => `Item ${index + 1}`);
 
   return (
     // <SimpleList items={items} />
     // <VirtualizedList items={items} itemHeight={35} containerHeight={800} />
+    // <UsualList items={items} />
 
     <BigList items={items} />
-    // <UsualList items={items} />
   );
-}
+};
 
 export default Virtualize;
